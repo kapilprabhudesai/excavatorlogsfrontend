@@ -3,6 +3,10 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getLogsReport,deleteExcavator ,addLog,deleteLog} from "../api";
 import { Trash,ArrowLeft } from "lucide-react"
+import TimePicker from 'react-time-picker';
+
+import 'react-time-picker/dist/TimePicker.css';
+ 
 
 import {
   TextInput,
@@ -235,23 +239,25 @@ if(startDateEpoch > endDateEpoch) {
       required
     />
 
-    {/* Start Time */}
-    <TextInput
-      type="time"
-      label="Start Time"
-      value={startTime}
-      onChange={(e) => setStartTime(e.target.value)}
-      required
-    />
+   
+    <label htmlFor="start-time">Start Time</label>
+<TimePicker
+  id="start-time"
+  onChange={setStartTime}
+  value={startTime}
+  format="hh:mm a"
+   disableClock={true}
+/>
 
-    {/* End Time */}
-    <TextInput
-      type="time"
-      label="End Time"
-      value={endTime}
-      onChange={(e) => setEndTime(e.target.value)}
-      required
-    />
+<label htmlFor="end-time">End Time</label>
+<TimePicker
+  id="end-time"
+  onChange={setEndTime}
+  value={endTime}
+  format="hh:mm a"
+   disableClock={true}
+/>
+
 
     {/* Diesel */}
     <TextInput
