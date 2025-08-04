@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getLogsReport,deleteExcavator ,addLog,deleteLog} from "../api";
 import { Trash,ArrowLeft } from "lucide-react"
+
 import {
   TextInput,
   Radio,
@@ -79,7 +81,7 @@ export default function LogsReport({ token }) {
 
   const query = useQuery();
   const paramExcavatorId = query.get("excavatorId") || "";
-
+ const navigate = useNavigate();
   const [excavatorId] = useState(paramExcavatorId);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -153,7 +155,7 @@ if(startDateEpoch > endDateEpoch) {
       await deleteExcavator(token, excavatorId);
       notifications.show({ message: "Excavator deleted", color: "green" });
 
-    window.location.href = "/excavators"; // Redirect to excavators page
+    navigate("/excavators")
     } catch (err) {
       notifications.show({ message: err.message, color: "red" });
     }
@@ -205,7 +207,7 @@ if(startDateEpoch > endDateEpoch) {
   return (
     <Container my="lg" style={{ maxWidth: 700 }}>
       <Title order={2} mb="md">
-        <ArrowLeft onClick={()=>window.location.href="/excavators"} className="w-4 h-4 mr-2" /> <small style={{color:"orange"}}>{report?.excavator?.shortname}</small>
+        <ArrowLeft onClick={()=>navigate("/excavators")} className="w-4 h-4 mr-2" /> <small style={{color:"orange"}}>{report?.excavator?.shortname}</small>
       </Title>
           <Modal
   opened={logModal}
